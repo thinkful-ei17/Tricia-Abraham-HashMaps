@@ -64,7 +64,6 @@ class HashMap {
       if(tempSlot !== undefined){
         this.add(tempSlot[i].key, tempSlot[i].value);
       }
-
     }
   }
 
@@ -123,6 +122,30 @@ class HashMap {
 
   }
 
+  get(key){
+    const index = this._findSlot(key);
+    return this.slots[index];
+  }
+
+  getByKV(key, value){
+    const index = this._findSlot(key);
+    let current = this.slots[index];
+    if(current.value === value){
+      return current;
+    }
+
+    while((current.next !== null) /*&& (current.value !== value)*/){
+      if(current.value === value){
+        return current;
+      }
+      current = current.next;
+    }
+
+    if(current.next === null && current.value !== value){
+      return null;
+    }
+    return current;
+  }
   
 }//end HashMap class
 
@@ -155,11 +178,17 @@ console.log(JSON.stringify(lor, null, ' '))
 console.log('-----------------------')
 display(lor);
 console.log('-----------------------')
-lor.remove("Hobbit", "Frodo")
-console.log(JSON.stringify(lor, null, ' '))
-console.log('-----------------------')
+// lor.remove("Hobbit", "Frodo")
+// console.log(JSON.stringify(lor, null, ' '))
+// console.log('-----------------------')
 lor.remove("Human", "Aragon")
 console.log(JSON.stringify(lor, null, ' '))
+
+console.log(lor.get('maiar'));
+console.log('-----------------------')
+console.log(lor.getByKV('Hobbit', 'Sam'));
+console.log(lor.getByKV('Hobbit', 'Frodo'));
+console.log(lor.getByKV('Hobbit', 'Bilbo'));
 }
 
 main();
