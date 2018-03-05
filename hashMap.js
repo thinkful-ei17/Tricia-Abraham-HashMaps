@@ -83,21 +83,24 @@ class HashMap {
     const node = new _Node(value, null);
     // lookup current node if any nodes exist
     let current = node;
+
+    //add node to new key
     if (this.slots[index] === undefined){
       this.slots[index] = node;
       //increase length
-      this.length++;      
+      this.length++;  
+      return;    
     } else {
-    //add node to beginning of list @ location
+    //add to existing key
       current = this.slots[index];
       this.slots[index] = node;
       node.next = current;
     }
+    return index;
   }
 
   remove(key, value) {
     //get hash of key
-    const hashedKey = HashMap._hashString(key);
     const index = this._findSlot(key);
 
     //go to the slot, then find the value
@@ -155,6 +158,18 @@ function display(hashMap){
       console.log( 'Key = ', hashMap.slots[i].key, 'Value = ', hashMap.slots[i].value);
   }
 }
+
+function isPalindrome(hashMap, str) {
+//add each character of the str to a hashMap
+for(let i = 0; i < str.length; i++ ){
+  hashMap.add(str.charAt(i))
+  if(key/index exits then cnt++)
+}
+const isPalind = false;
+//determine if there is an even number of each character in the hashMap
+//and only one character that is uneven.
+while()
+}
   
 
 
@@ -163,32 +178,36 @@ function main() {
 //exercise operations
 
 let lor = new HashMap();
-lor.add("Hobbit", "Bilbo");
-lor.add("Hobbit", "Frodo");
-lor.add("Wizard", "Gandolf");
-lor.add("Human", "Aragon");
-lor.add("Elf", "Legolas");
-lor.add("Maiar", "The Necromancer");
-lor.add("Maiar", "Sauron");
-lor.add("RingBearer", "Gollum");
-lor.add("LadyOfLight", "Galadriel");
-lor.add("HalfElven", "Arwen");
-lor.add("Ent", "Treebeard");
-console.log(JSON.stringify(lor, null, ' '))
-console.log('-----------------------')
-display(lor);
-console.log('-----------------------')
+
+// lor.add("Hobbit", "Bilbo");
+// lor.add("Hobbit", "Frodo");
+// lor.add("Wizard", "Gandolf");
+// lor.add("Human", "Aragon");
+// lor.add("Elf", "Legolas");
+// lor.add("Maiar", "The Necromancer");
+// lor.add("Maiar", "Sauron");
+// lor.add("RingBearer", "Gollum");
+// lor.add("LadyOfLight", "Galadriel");
+// lor.add("HalfElven", "Arwen");
+// lor.add("Ent", "Treebeard");
+// console.log(JSON.stringify(lor, null, ' '))
+// console.log('-----------------------')
+// display(lor);
+// console.log('-----------------------')
 // lor.remove("Hobbit", "Frodo")
 // console.log(JSON.stringify(lor, null, ' '))
 // console.log('-----------------------')
-lor.remove("Human", "Aragon")
-console.log(JSON.stringify(lor, null, ' '))
+// lor.remove("Human", "Aragon")
+// console.log(JSON.stringify(lor, null, ' '))
 
-console.log(lor.get('maiar'));
-console.log('-----------------------')
-console.log(lor.getByKV('Hobbit', 'Sam'));
-console.log(lor.getByKV('Hobbit', 'Frodo'));
-console.log(lor.getByKV('Hobbit', 'Bilbo'));
+// console.log(lor.get('maiar'));
+// console.log('-----------------------')
+// console.log(lor.getByKV('Hobbit', 'Sam'));
+// console.log(lor.getByKV('Hobbit', 'Frodo'));
+// console.log(lor.getByKV('Hobbit', 'Bilbo'));
+
+console.log(isPalindrome(lor, 'acecarr'));
+
 }
 
 main();
