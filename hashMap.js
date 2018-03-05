@@ -20,7 +20,7 @@ class HashMap {
   }
 
 
-  _hashString(string) {
+  static _hashString(string) {
     let hash = 5381;
     for (let i=0; i<string.length; i++) {
       hash = (hash << 5) + hash + string.charCodeAt(i);
@@ -38,10 +38,12 @@ class HashMap {
 
   _findSlot(key) {
     //create a hash based on key
-    const hashedKey = this._hashString(key);
+    const hashedKey = HashMap._hashString(key);
+    console.log('Hash received = ', hashedKey)
     //create an index based on the capacity of our hash table
     const index = hashedKey % this.capacity;
     //return the index (location)
+    console.log('_findSlot returns index = ', index)
     return index;
   }
 
@@ -96,14 +98,41 @@ class HashMap {
 
   remove(key, value) {
     //get hash of key
-    //loop through slot to find location of key
-    //traverse the list to locate the value
-    //remove node from list
+    const hashedKey = HashMap._hashString(key);
+    const index = this._findSlot(key);
 
+    //go to the slot, then find the value
+    let current = this.slots[index];
+    let prev = this.slots[index];
+
+    //does slots[index] ==== value?
+    if (this.slots[index].value === value) {
+      this.slots[index] = current.next;
+      return;
+    }
+    //traverse the list to locate the value
+    while ((current.next !== null) && (current.value !== value)) {
+      prev = current;
+      current = current.next;
+      }
+      if (current === null) {
+        console.log('item not found');
+      }
+      //remove node from list
+      prev.next = current.next;
 
   }
 
+  
 }//end HashMap class
+
+function display(hashMap){
+  for( let i = 0; i < hashMap.capacity; i++) {
+    if(hashMap.slots[i] !== undefined)
+      console.log( 'Key = ', hashMap.slots[i].key, 'Value = ', hashMap.slots[i].value);
+  }
+}
+  
 
 
 function main() {
@@ -122,7 +151,14 @@ lor.add("RingBearer", "Gollum");
 lor.add("LadyOfLight", "Galadriel");
 lor.add("HalfElven", "Arwen");
 lor.add("Ent", "Treebeard");
-
+console.log(JSON.stringify(lor, null, ' '))
+console.log('-----------------------')
+display(lor);
+console.log('-----------------------')
+lor.remove("Hobbit", "Frodo")
+console.log(JSON.stringify(lor, null, ' '))
+console.log('-----------------------')
+lor.remove("Human", "Aragon")
 console.log(JSON.stringify(lor, null, ' '))
 }
 
