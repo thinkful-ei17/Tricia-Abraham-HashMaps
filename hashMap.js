@@ -39,11 +39,11 @@ class HashMap {
   _findSlot(key) {
     //create a hash based on key
     const hashedKey = HashMap._hashString(key);
-    console.log('Hash received = ', hashedKey)
+    // console.log('Hash received = ', hashedKey)
     //create an index based on the capacity of our hash table
     const index = hashedKey % this.capacity;
     //return the index (location)
-    console.log('_findSlot returns index = ', index)
+    // console.log('_findSlot returns index = ', index)
     return index;
   }
 
@@ -159,16 +159,38 @@ function display(hashMap){
   }
 }
 
-function isPalindrome(hashMap, str) {
+/**
+ * 
+ * 
+ * @param {any} str 
+ * @returns 
+ */
+function isPalindrome(str) {
+  hashMap = new HashMap();
 //add each character of the str to a hashMap
 for(let i = 0; i < str.length; i++ ){
-  hashMap.add(str.charAt(i))
-  if(key/index exits then cnt++)
+  let currentKey = str.charAt(i);
+  let found = hashMap.get(currentKey);
+  if (!found){
+    hashMap.add(currentKey, 1);
+  } else {
+    let oldValue = found.value+1;
+    hashMap.remove(currentKey);
+    hashMap.add(currentKey, oldValue);
+  }
 }
-const isPalind = false;
-//determine if there is an even number of each character in the hashMap
-//and only one character that is uneven.
-while()
+
+  let isPalind = false;
+  let idx;
+  for(let i = 0; i < str.length; i++){
+    idx = hashMap._findSlot(str.charAt(i));
+    current = hashMap.slots[idx];
+    if(current.value % 2 === 1){
+      if(isPalind) return false;
+      isPalind = true;
+    }
+  }
+  return true;
 }
   
 
@@ -206,7 +228,13 @@ let lor = new HashMap();
 // console.log(lor.getByKV('Hobbit', 'Frodo'));
 // console.log(lor.getByKV('Hobbit', 'Bilbo'));
 
-console.log(isPalindrome(lor, 'acecarr'));
+console.log('-----------------------')
+let checkP = 'acecarr';
+console.log(`${checkP} is:`, isPalindrome(checkP))
+checkP = 'dad'
+console.log(`${checkP} is:`, isPalindrome(checkP))
+checkP = 'abraham'
+console.log(`${checkP} is:`, isPalindrome(checkP))
 
 }
 
